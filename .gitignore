@@ -4,6 +4,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/skydash-free-bootstrap-admin-template
 .env
 .env.backup
 .phpunit.result.cache
