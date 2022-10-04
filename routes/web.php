@@ -24,8 +24,12 @@ Route::get('/dashboard', function () {
 
 // Admin Routes
 Route::prefix('admin')->group(function () {
-    // admin dashboard route
-    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+    // protected routes
+    Route::group(['middleware' => 'admin'], function () {
+        // admin dashboard route
+        Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    });
 
     // admin login route
     Route::get('/login', [AdminController::class, 'login']);
