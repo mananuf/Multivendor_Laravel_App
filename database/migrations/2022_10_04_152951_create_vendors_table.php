@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('pincode');
             $table->string('phone');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->tinyInteger('status');
             $table->timestamps();
         });
