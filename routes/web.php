@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+// Admin Routes
+// admin dashboard route
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+
+// admin login route
+Route::get('/admin/login', [AdminController::class, 'login']);
+
+require __DIR__ . '/auth.php';
