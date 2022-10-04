@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->string('vendor_id');
+            $table->integer('vendor_id');
             $table->string('phone');
             $table->string('email')->unique();
             $table->string('password');
