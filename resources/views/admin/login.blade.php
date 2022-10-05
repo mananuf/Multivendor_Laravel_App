@@ -37,10 +37,20 @@
               <form class="pt-3" method="POST" action="{{route('admin.login')}}">
                 @csrf
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Username">
+                  @if ($errors)
+                    @error('email')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                  @endif
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Password">
+                  @if ($errors)
+                    @error('password')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                  @endif
                 </div>
                 <div class="mt-3">
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >SIGN IN</button>
