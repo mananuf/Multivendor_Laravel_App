@@ -19,7 +19,7 @@ class Admin
     {
         // if user is not logged in as admin
         if (!Auth::guard('admin')->check()) {
-            return redirect('/admin/login');
+            return redirect('admin/login');
         }
         return $next($request);
     }
