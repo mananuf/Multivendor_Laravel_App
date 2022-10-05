@@ -53,6 +53,7 @@
       @include('admin.layouts.sidebar')
       <!-- partial -->
       <div class="main-panel">
+        <x-messages/>
         {{-- main contents goes here --}}
         @yield('content')
         <!-- content-wrapper ends -->
