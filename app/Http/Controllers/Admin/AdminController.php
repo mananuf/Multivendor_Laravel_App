@@ -17,15 +17,17 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-        if ($request->method('POST')) {
+        if ($request->isMethod('POST')) {
             // validate form
             $request->validate([
                 'email' => 'required',
                 'password' => 'required'
             ]);
+
             // get form data
             $form_data = $request->all();
-            // get credentials
+
+            // get credentials to check against form
             $credentials = [
                 'email' => $form_data['email'],
                 'password' => $form_data['password'],
@@ -39,7 +41,7 @@ class AdminController extends Controller
                 return redirect()->back()->with('error', 'invalid credentials, try again');
             }
         }
-        // echo Hash::make('superpass');
+
         return view('admin.login');
     }
 }
