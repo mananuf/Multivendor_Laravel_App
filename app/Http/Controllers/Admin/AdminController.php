@@ -27,7 +27,7 @@ class AdminController extends Controller
             // get form data
             $form_data = $request->all();
 
-            // get credentials to check against form
+            // get credentials to check against form 
             $credentials = [
                 'email' => $form_data['email'],
                 'password' => $form_data['password'],
