@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function () {
     });
 
     // admin login route
-    Route::get('/login', [AdminController::class, 'login']);
+    Route::match(['get', 'post'], '/login', [AdminController::class, 'login']);
 });
 
 require __DIR__ . '/auth.php';
