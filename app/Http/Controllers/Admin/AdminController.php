@@ -18,11 +18,21 @@ class AdminController extends Controller
     public function login(Request $request)
     {
         if ($request->isMethod('POST')) {
-            // validate form
-            $request->validate([
-                'email' => 'required',
+            // rules to validate form
+            $rules = [
+                'email' => 'required|email',
                 'password' => 'required'
-            ]);
+            ];
+
+            // custom messages
+            $customMessages = [
+                'email.required' => 'you must fill in your email address',
+                'email.email' => 'you must provide a valid email address',
+                'password.required' => 'kindly fill in your password',
+            ];
+
+            $this->validate($request, $rules, $customMessages);
+
 
             // get form data
             $form_data = $request->all();
@@ -51,5 +61,11 @@ class AdminController extends Controller
         $request->session()->invalidate();
         // $request->
         return redirect()->route('home');
+    }
+
+    // update admin password
+    public function updateAdminPassword()
+    {
+        return view('admin.settings.update-admin-password');
     }
 }
