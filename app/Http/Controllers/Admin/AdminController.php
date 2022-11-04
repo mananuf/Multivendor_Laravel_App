@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Image;
 
 class AdminController extends Controller
 {
@@ -113,11 +114,28 @@ class AdminController extends Controller
             ];
             $this->validate($request, $rules, $customMessages);
 
+            // if the image field has an image
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                if ($image->isValid()) {
+                    $extension = $image->getClientOriginalExtension();
+                    $image_name = rand(111222, 9778923) . '.' . $extension;
+
+                    // save the file to 'image' field in Db, create a folder in public called companyImages & store images
+                    $image_path = 'storage/admin/' . $image_name;
+                    // dd($image_path);
+                    Image::make($image)->resize('200', '200')->save($image_path);
+                }
+                // $image = $request->file('image')->store('admin', 'public');
+            }
+
             Admin::where('id', Auth::guard('admin')->user()->id)
                 ->update([
                     'name' => $request->name,
-                    'phone' => $request->phone_number
+                    'phone' => $request->phone_number,
+                    'image' => $image_name
                 ]);
+
             return redirect()->route('admin.dashboard')->with('success', 'details were updated');
         }
         return view('admin.settings.update-admin-details');
