@@ -8,7 +8,7 @@
                   <p class="card-description">
                     {{Auth::guard('admin')->user()->name}}
                   </p>
-                  <form class="forms-sample" method="POST" action="{{route('admin.details.update')}}">
+                  <form class="forms-sample" method="POST" enctype="multipart/form-data" action="{{route('admin.details.update')}}">
                     @csrf
                     <div class="form-group">
                       <label for="exampleInputUsername1">Username</label>
@@ -32,11 +32,20 @@
                       <label for="phone_number">Phone Number</label>
                       <input type="text" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" value="{{Auth::guard('admin')->user()->phone}}" name="phone_number">
                       @if($errors)
-                        @error('password_confirmation')
+                        @error('phone_number')
                             <small class="text-sm text-danger">{{$message}}</small>
                         @enderror
                         @endif
                     </div>
+                    <div class="form-group">
+                        <label for="image">Profile Photo</label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                        @if($errors)
+                          @error('image')
+                              <small class="text-sm text-danger">{{$message}}</small>
+                          @enderror
+                          @endif
+                      </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
 
                     <a class="btn btn-light" href="{{route('admin.dashboard')}}">Cancel</a>
