@@ -19,7 +19,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('admin/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('img/eshop.png') }}" />
 </head>
 <body>
   <div class="container-scroller">
@@ -53,7 +53,7 @@
       @include('admin.layouts.sidebar')
       <!-- partial -->
       <div class="main-panel">
-        <x-messages/>
+        
         {{-- main contents goes here --}}
         @yield('content')
         <!-- content-wrapper ends -->
