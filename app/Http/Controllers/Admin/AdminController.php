@@ -64,8 +64,19 @@ class AdminController extends Controller
     }
 
     // update admin password
-    public function updateAdminPassword()
+    public function updateAdminPassword(Request $request)
     {
+
+
         return view('admin.settings.update-admin-password');
+    }
+    // check password match
+    public function checkPasswordMatch(Request $request)
+    {
+
+        if (Hash::check($request->current_password, Auth::guard('admin')->user()->password)) {
+            return redirect()->route('admin.password.update')->with('success', 'Passwords match. You can now change your password');
+        }
+        return view('admin.settings.check-password-match');
     }
 }
