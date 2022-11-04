@@ -23,7 +23,7 @@ class AdminTableSeeder extends Seeder
                 'vendor_id' => 0,
                 'phone' => '07038555803',
                 'email' => 'admin@eshop.com',
-                'password' => '$2y$10$g/i3BItIxvbfXjUSIKlzhOkjMBP0ZKmpcoC5Yr/bkoA7C/zBvr29u',
+                'password' => '$2y$10$S.afxqox.l.DJmOzJjS/k.NWoIKjiQQYssZIiQ5XPIz79v7EcPKpe',
                 'image' => '',
                 'status' => 1
             ]
