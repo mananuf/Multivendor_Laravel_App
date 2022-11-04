@@ -19,23 +19,24 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('admin/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('img/eshop.png') }}" />
 </head>
 <body>
 <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
-          <div class="d-block">
-            <x-messages/>
-          </div>
+          
           <div class="col-lg-6 mx-auto">
+            <x-messages class="mx-auto"/>
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="{{asset('admin/images/logo.svg')}}" alt="logo">
+              <div class="d-flex align-items-center">
+                  <img src="{{asset('img/eshop.png')}}" class="w-25" alt="logo">
+                  <div>
+                    <h4 class="d-block">Hello! let's get started</h4>
+                    <h6 class="font-weight-light">Sign in to continue.</h6>
+                  </div>
               </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
               {{-- form start --}}
               <form class="pt-3" method="POST" action="{{route('admin.login')}}">
                 @csrf
@@ -43,7 +44,7 @@
                   <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Username">
                   @if ($errors)
                     @error('email')
-                        <p class="text-danger">{{ $message }}</p>
+                        <p class="text-danger text-sm">{{ $message }}</p>
                     @enderror
                   @endif
                 </div>
