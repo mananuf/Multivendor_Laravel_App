@@ -32,10 +32,9 @@ Route::prefix('admin')->group(function () {
         // admin dashboard route
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         // update password
-        Route::get('update-admin-password', [AdminController::class, 'updateAdminPassword'])
+        Route::match(['get', 'post'], 'update-admin-password', [AdminController::class, 'updateAdminPassword'])
             ->name('admin.password.update');
-        Route::post('update-admin-password', [AdminController::class, 'updatingPassword'])
-            ->name('admin.password.updating');
+
         // check password match
         Route::get('check-admin-password', [AdminController::class, 'passwordMatch'])
             ->name('admin.password.check');

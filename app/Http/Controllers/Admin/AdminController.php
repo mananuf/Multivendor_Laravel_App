@@ -79,27 +79,25 @@ class AdminController extends Controller
         return redirect()->back()->withErrors('passwords does not match');
     }
 
-    // update admin password view
-    public function updateAdminPassword()
+    // update admin password
+    public function updateAdminPassword(Request $request)
     {
+        if ($request->isMethod('post')) {
+            $form_data = $request->validate([
+                'new_password' => 'required',
+                'password_confirmation' => 'required'
+            ]);
+
+            if ($request->new_password === $request->password_confirmation) {
+                Admin::where('id', Auth::guard('admin')->user()->id)
+                    ->update(['password' => Hash::make($request->new_password)]);
+                return redirect()->route('admin.dashboard')->with('success', 'password was updated');
+            }
+            return redirect()->back()->withErrors('passwords does not match');
+        }
         return view('admin.settings.update-admin-password');
     }
 
-    public function updatingPassword(Request $request)
-    {
-        $form_data = $request->validate([
-            'new_password' => 'required',
-            'password_confirmation' => 'required'
-        ]);
-
-        if ($request->new_password === $request->password_confirmation) {
-            Admin::where('id', Auth::guard('admin')->user()->id)
-                ->update(['password' => Hash::make($request->new_password)]);
-            return redirect()->route('admin.dashboard')->with('success', 'password was updated');
-        } else {
-            return redirect()->back()->withErrors('passwords does not match');
-        }
-    }
 
     // update admin details
     public function updateAdminDetails(Request $request)
