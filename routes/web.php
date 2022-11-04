@@ -36,9 +36,8 @@ Route::prefix('admin')->group(function () {
             ->name('admin.password.update');
 
         // check password match
-        Route::get('check-admin-password', [AdminController::class, 'passwordMatch'])
+        Route::match(['get', 'post'], 'check-admin-password', [AdminController::class, 'checkPasswordMatch'])
             ->name('admin.password.check');
-        Route::post('check-admin-password', [AdminController::class, 'checkPasswordMatch'])->name('admin.password.checking');
 
         // update admin details
         Route::match(['get', 'post'], 'update-admin-details', [AdminController::class, 'updateAdminDetails'])

@@ -8,7 +8,7 @@
                   <p class="card-description">
                     {{Auth::guard('admin')->user()->name}}
                   </p>
-                  <form class="forms-sample" method="POST" action="{{route('admin.password.checking')}}">
+                  <form class="forms-sample" method="POST" action="{{route('admin.password.check')}}">
                     @csrf
                     <div class="form-group">
                       <label for="exampleInputUsername1">Username</label>
