@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // dd(Hash::make('password'));
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,6 +35,8 @@ Route::prefix('admin')->group(function () {
 
     // admin login route
     Route::match(['GET', 'POST'], 'login', [AdminController::class, 'login'])->name('admin.login');
+    // logout
+    Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
 require __DIR__ . '/auth.php';
