@@ -104,6 +104,27 @@ class AdminController extends Controller
     // update admin details
     public function updateAdminDetails(Request $request)
     {
+        if ($request->isMethod('post')) {
+            $rules = [
+                'name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'phone_number' => 'required|numeric'
+            ];
+
+            $customMessages = [
+                'name.required' => 'username field can\'t be left empty',
+                'name.regex' => 'username field doesn\'t accept special characters, numbers and spaces',
+                'phone_number.required' => 'phone number field can\'t be left empty',
+                'phone_number.numeric' => 'phone number must be numeric'
+            ];
+            $this->validate($request, $rules, $customMessages);
+
+            Admin::where('id', Auth::guard('admin')->user()->id)
+                ->update([
+                    'name' => $request->name,
+                    'phone' => $request->phone_number
+                ]);
+            return redirect()->route('admin.dashboard')->with('success', 'details were updated');
+        }
         return view('admin.settings.update-admin-details');
     }
 }
