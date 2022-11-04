@@ -31,8 +31,13 @@ Route::prefix('admin')->group(function () {
     Route::group(['middleware' => 'admin'], function () {
         // admin dashboard route
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        // update password
         Route::match(['get', 'post'], 'update-admin-password', [AdminController::class, 'updateAdminPassword'])
             ->name('admin.password.update');
+        // check password match
+        Route::get('check-admin-password', [AdminController::class, 'passwordMatch'])
+            ->name('admin.password.check');
+        Route::post('check-admin-password', [AdminController::class, 'checkPasswordMatch']);
     });
 
     // admin login route
