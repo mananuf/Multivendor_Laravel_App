@@ -8,7 +8,7 @@
                   <p class="card-description">
                     {{Auth::guard('admin')->user()->name}}
                   </p>
-                  <form class="forms-sample" method="POST" action="{{route('admin.password.update')}}">
+                  <form class="forms-sample" method="POST" action="">
                     @csrf
                     <div class="form-group">
                       <label for="exampleInputUsername1">Username</label>
@@ -21,11 +21,21 @@
                     
                     <div class="form-group">
                         <label for="new_password">New Password</label>
-                        <input type="password" class="form-control" id="new_password" placeholder="New Password" name="new_password">
+                        <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" placeholder="New Password" name="new_password">
+                        @if($errors)
+                        @error('new_password')
+                            <small class="text-sm text-danger">{{$message}}</small>
+                        @enderror
+                        @endif
                       </div>
                     <div class="form-group">
                       <label for="password_confirmation">Confirm Password</label>
-                      <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" name="password_confirmation">
+                      <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Confirm Password" name="password_confirmation">
+                      @if($errors)
+                        @error('password_confirmation')
+                            <small class="text-sm text-danger">{{$message}}</small>
+                        @enderror
+                        @endif
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
 
