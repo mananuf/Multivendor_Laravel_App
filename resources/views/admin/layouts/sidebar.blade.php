@@ -15,7 +15,7 @@
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.password.check')}}">Update Password</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Update Details</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{route('admin.details.update')}}">Update Details</a></li>
           </ul>
         </div>
       </li>
