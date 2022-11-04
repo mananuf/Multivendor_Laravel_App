@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -63,18 +64,12 @@ class AdminController extends Controller
         return redirect()->route('home');
     }
 
-    // update admin password
-    public function updateAdminPassword(Request $request)
-    {
-
-
-        return view('admin.settings.update-admin-password');
-    }
-    // check password match view
+    // password match view
     public function passwordMatch()
     {
         return view('admin.settings.check-password-match');
     }
+
     // checks password match
     public function checkPasswordMatch(Request $request)
     {
@@ -82,5 +77,33 @@ class AdminController extends Controller
             return redirect()->route('admin.password.update')->with('success', 'Passwords match. You can now change your password');
         }
         return redirect()->back()->withErrors('passwords does not match');
+    }
+
+    // update admin password view
+    public function updateAdminPassword()
+    {
+        return view('admin.settings.update-admin-password');
+    }
+
+    public function updatingPassword(Request $request)
+    {
+        $form_data = $request->validate([
+            'new_password' => 'required',
+            'password_confirmation' => 'required'
+        ]);
+
+        if ($request->new_password === $request->password_confirmation) {
+            Admin::where('id', Auth::guard('admin')->user()->id)
+                ->update(['password' => Hash::make($request->new_password)]);
+            return redirect()->route('admin.dashboard')->with('success', 'password was updated');
+        } else {
+            return redirect()->back()->withErrors('passwords does not match');
+        }
+    }
+
+    // update admin details
+    public function updateAdminDetails(Request $request)
+    {
+        return view('admin.settings.update-admin-details');
     }
 }
