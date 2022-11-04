@@ -32,12 +32,18 @@ Route::prefix('admin')->group(function () {
         // admin dashboard route
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         // update password
-        Route::match(['get', 'post'], 'update-admin-password', [AdminController::class, 'updateAdminPassword'])
+        Route::get('update-admin-password', [AdminController::class, 'updateAdminPassword'])
             ->name('admin.password.update');
+        Route::post('update-admin-password', [AdminController::class, 'updatingPassword'])
+            ->name('admin.password.updating');
         // check password match
         Route::get('check-admin-password', [AdminController::class, 'passwordMatch'])
             ->name('admin.password.check');
-        Route::post('check-admin-password', [AdminController::class, 'checkPasswordMatch']);
+        Route::post('check-admin-password', [AdminController::class, 'checkPasswordMatch'])->name('admin.password.checking');
+
+        // update admin details
+        Route::match(['get', 'post'], 'update-admin-details', [AdminController::class, 'updateAdminDetails'])
+            ->name('admin.details.update');
     });
 
     // admin login route
