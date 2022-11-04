@@ -30,7 +30,7 @@ Route::prefix('admin')->group(function () {
     // protected routes
     Route::group(['middleware' => 'admin'], function () {
         // admin dashboard route
-        Route::get('/dashboard', [AdminController::class, 'dashboard']);
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::match(['get', 'post'], 'update-admin-password', [AdminController::class, 'updateAdminPassword'])
             ->name('admin.password.update');
     });

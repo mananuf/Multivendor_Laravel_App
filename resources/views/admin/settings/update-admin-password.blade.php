@@ -29,7 +29,7 @@
                       <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" name="password_confirmation">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <a class="btn btn-light" href="{{route('admin.dashboard')}}">Cancel</a>
                   </form>
                 </div>
               </div>
