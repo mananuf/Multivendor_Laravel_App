@@ -17,12 +17,22 @@ class AdminTableSeeder extends Seeder
     {
         //
         $super_admin = [
+            // [
+            //     'name' => 'Super Admin',
+            //     'type' => 'superadmin',
+            //     'vendor_id' => 0,
+            //     'phone' => '07038555803',
+            //     'email' => 'admin@eshop.com',
+            //     'password' => '$2y$10$S.afxqox.l.DJmOzJjS/k.NWoIKjiQQYssZIiQ5XPIz79v7EcPKpe',
+            //     'image' => '',
+            //     'status' => 1
+            // ],
             [
-                'name' => 'Super Admin',
-                'type' => 'superadmin',
-                'vendor_id' => 0,
+                'name' => 'vendor one',
+                'type' => 'vendor',
+                'vendor_id' => 1,
                 'phone' => '07038555803',
-                'email' => 'admin@eshop.com',
+                'email' => 'vendorone@eshop.com',
                 'password' => '$2y$10$S.afxqox.l.DJmOzJjS/k.NWoIKjiQQYssZIiQ5XPIz79v7EcPKpe',
                 'image' => '',
                 'status' => 1
