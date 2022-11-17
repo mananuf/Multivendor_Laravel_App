@@ -346,4 +346,15 @@ class AdminController extends Controller
             )
         );
     }
+
+    // view vendor details
+    public function viewVendorDetails($id)
+    {
+        $vendorDetails = Admin::where('id', $id)
+            ->with('vendorPersonal', 'vendorBusiness', 'vendorBank')
+            ->first();
+        // incase database is empty.
+        $vendorDetails = json_decode(json_encode($vendorDetails), true);
+        dd($vendorDetails);
+    }
 }
