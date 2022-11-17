@@ -323,4 +323,27 @@ class AdminController extends Controller
             )
         );
     }
+
+    public function adminsView($type = null)
+    {
+        $admins = Admin::query();
+        if (!empty($type)) {
+            $admins = $admins->where('type', $type)
+                ->get();
+            $title = ucfirst($type) . 's';
+            $description = 'List of all ' . $title;
+        } else {
+            $title = 'All Admins | Sub-Admins | Vendors';
+        }
+        $admins = $admins->all();
+
+        return view(
+            'admin.admins.admins-view',
+            compact(
+                'admins',
+                'title',
+                'description'
+            )
+        );
+    }
 }
