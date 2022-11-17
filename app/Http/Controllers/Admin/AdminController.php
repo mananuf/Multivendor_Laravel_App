@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Vendor;
+use App\Models\VendorBankDetail;
+use App\Models\VendorsBusinessDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -139,5 +142,185 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard')->with('success', 'details were updated');
         }
         return view('admin.settings.update-admin-details');
+    }
+
+    // update vendor details
+    public function updateVendorDetails(Request $request, $slug)
+    {
+        if ($slug == "personal") {
+            // post request
+            if ($request->isMethod('POST')) {
+                $rules = [
+                    'name' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'address' => 'required',
+                    'city' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'state' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'country' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'phone_number' => 'required|numeric'
+                ];
+
+                $customMessages = [
+                    'name.required' => 'username field can\'t be left empty',
+                    'name.regex' => 'username field doesn\'t accept special characters, numbers and spaces',
+                    'address.required' => 'address field can\'t be left empty',
+                    'city.required' => 'city field can\'t be left empty',
+                    'city.regex' => 'city field doesn\'t accept special characters, numbers and spaces',
+                    'state.required' => 'state field can\'t be left empty',
+                    'state.regex' => 'state field doesn\'t accept special characters, numbers and spaces',
+                    'country.required' => 'country field can\'t be left empty',
+                    'country.regex' => 'country field doesn\'t accept special characters, numbers and spaces',
+                    'phone_number.required' => 'phone number field can\'t be left empty',
+                    'phone_number.numeric' => 'phone number must be numeric'
+                ];
+                $this->validate($request, $rules, $customMessages);
+
+                // if the image field has an image
+                if ($request->hasFile('image')) {
+                    $image = $request->file('image');
+                    if ($image->isValid()) {
+                        $extension = $image->getClientOriginalExtension();
+                        $image_name = rand(111222, 9778923) . '.' . $extension;
+
+                        // save the file to 'image' field in Db, create a folder in public called companyImages & store images
+                        $image_path = 'storage/admin/' . $image_name;
+                        // dd($image_path);
+                        Image::make($image)->resize('200', '200')->save($image_path);
+                    }
+                    // $image = $request->file('image')->store('admin', 'public');
+                }
+
+                // update admin records table
+                Admin::where('id', Auth::guard('admin')->user()->id)
+                    ->update([
+                        'name' => $request->name,
+                        'phone' => $request->phone_number,
+                        'image' => $image_name
+                    ]);
+
+                // update admin records table
+                Vendor::where('id', Auth::guard('admin')->user()->vendor_id)
+                    ->update([
+                        'name' => $request->name,
+                        'address' => $request->address,
+                        'city' => $request->city,
+                        'state' => $request->state,
+                        'country' => $request->country,
+                        'phone' => $request->phone_number,
+                    ]);
+                return redirect()->back()->with('success', 'vendor details updated successfully!');
+            }
+            $vendorDetails = Vendor::where('id', Auth::guard('admin')->user()->vendor_id)
+                ->first()
+                ->get();
+        } elseif ($slug == "business") {
+            // post request
+            if ($request->isMethod('POST')) {
+                $rules = [
+                    'shop_name' => 'required',
+                    'shop_address' => 'required',
+                    'shop_email' => 'required|email',
+                    'shop_city' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'shop_state' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'shop_country' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'shop_contact' => 'required|numeric',
+                    'address_proof' => 'required',
+                    'address_image' => 'required|image',
+                    'business_license_number' => 'required',
+                ];
+
+                $customMessages = [
+                    'shop_name.required' => 'shop name field can\'t be left empty',
+                    'shop_address.required' => 'address field can\'t be left empty',
+                    'shop_city.required' => 'city field can\'t be left empty',
+                    'shop_city.regex' => 'city field doesn\'t accept special characters, numbers and spaces',
+                    'shop_state.required' => 'state field can\'t be left empty',
+                    'shop_state.regex' => 'state field doesn\'t accept special characters, numbers and spaces',
+                    'shop_country.required' => 'country field can\'t be left empty',
+                    'shop_country.regex' => 'country field doesn\'t accept special characters, numbers and spaces',
+                    'shop_contact.required' => 'phone number field can\'t be left empty',
+                    'shop_contact.numeric' => 'phone number must be numeric',
+                    'shop_email.required' => 'email is required',
+                    'shop_email.email' => 'email must be valid',
+                    'address_proof' => "you must select a valid means of proof",
+                    'business_license_number' => 'This field can\'t be left blank'
+                ];
+                $this->validate($request, $rules, $customMessages);
+
+                // if the image field has an image
+                if ($request->hasFile('address_image')) {
+                    $image = $request->file('address_image');
+                    if ($image->isValid()) {
+                        $extension = $image->getClientOriginalExtension();
+                        $image_name = rand(111222, 9778923) . '.' . $extension;
+
+                        // save the file to 'image' field in Db, create a folder in public called companyImages & store images
+                        $image_path = 'storage/address/address' . $image_name;
+                        // dd($image_path);
+                        Image::make($image)->resize('200', '200')->save($image_path);
+                    }
+                    // $image = $request->file('image')->store('admin', 'public');
+                }
+
+                // update vendor business records table
+                VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)
+                    ->update([
+                        'shop_name' => $request->shop_name,
+                        'shop_address' => $request->shop_address,
+                        'shop_city' => $request->shop_city,
+                        'shop_state' => $request->shop_state,
+                        'shop_country' => $request->shop_country,
+                        'shop_contact' => $request->shop_contact,
+                        'shop_email' => $request->shop_email,
+                        'shop_website' => $request->shop_website,
+                        'address_proof' => $request->address_proof,
+                        'address_image' => $image_name,
+                        'business_license_number' => $request->business_license_number,
+                    ]);
+                return redirect()->back()->with('success', 'vendor details updated successfully!');
+            }
+
+            $vendorDetails = VendorsBusinessDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)
+                ->first()
+                ->get();
+        } elseif ($slug == "bank") {
+            // post request
+            if ($request->isMethod('POST')) {
+                $rules = [
+                    'bank_name' => 'required',
+                    'account_holder_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                    'account_number' => 'required|numeric',
+                ];
+
+                $customMessages = [
+                    'bank_name.required' => 'Bank name field can\'t be left empty',
+                    'account_holder_name.required' => 'account holder\'s name field can\'t be left empty',
+                    'account_holder_name.regex' => 'account holder\'s name field doesn\'t accept special characters, numbers and spaces',
+                    'account_number.required' => 'account number field can\'t be left empty',
+                    'account_number.numeric' => 'account number must be numeric',
+                ];
+                $this->validate($request, $rules, $customMessages);
+
+
+                // update vendor bank records table
+                VendorBankDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)
+                    ->update([
+                        'bank_name' => $request->bank_name,
+                        'account_holder_name' => $request->account_holder_name,
+                        'account_number' => $request->account_number
+                    ]);
+                return redirect()->back()->with('success', 'vendor details updated successfully!');
+            }
+
+            $vendorDetails = VendorBankDetail::where('vendor_id', Auth::guard('admin')->user()->vendor_id)
+                ->first()
+                ->get();
+        }
+        return view(
+            'admin.settings.update-vendor-details',
+            compact(
+                'slug',
+                'vendorDetails',
+            )
+        );
     }
 }
