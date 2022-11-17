@@ -22,16 +22,48 @@
         </div>
       </li>
       @else
+      {{-- settings --}}
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
           <i class="icon-layout menu-icon"></i>
           <span class="menu-title">Settings</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="settings">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.password.check')}}">Update Password</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.details.update')}}">Update Details</a></li>
+          </ul>
+        </div>
+      </li>
+
+      {{-- Admin Management --}}
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#admin-management" aria-expanded="false" aria-controls="admin-management">
+          <i class="icon-layout menu-icon"></i>
+          <span class="menu-title">Admin Manangement</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="admin-management">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/super_admin')}}">Super Admin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/sub_admin')}}">Sub-Admin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor')}}">Vendor</a></li>
+          </ul>
+        </div>
+      </li>
+
+      {{-- User Management --}}
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#user-management" aria-expanded="false" aria-controls="user-management">
+          <i class="icon-layout menu-icon"></i>
+          <span class="menu-title">User Manangement</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="user-management">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/users')}}">Users</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/subscribers')}}">Subscribers</a></li>
           </ul>
         </div>
       </li>
