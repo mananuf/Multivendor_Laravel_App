@@ -46,9 +46,9 @@
         </a>
         <div class="collapse" id="admin-management">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{url('admin/super_admin')}}">Super Admin</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{url('admin/sub_admin')}}">Sub-Admin</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor')}}">Vendor</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/admins/super_admin')}}">Super Admin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/admins/sub_admin')}}">Sub-Admin</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('admin/admins/vendor')}}">Vendor</a></li>
           </ul>
         </div>
       </li>
@@ -116,7 +116,7 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
           <i class="icon-head menu-icon"></i>
           <span class="menu-title">User Pages</span>
@@ -128,7 +128,7 @@
             <li class="nav-item"> <a class="nav-link" href="{{asset('admin/pages/samples/register.html')}}"> Register </a></li>
           </ul>
         </div>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
           <i class="icon-ban menu-icon"></i>
