@@ -22,9 +22,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call(AdminTableSeeder::class);
-        $this->call(VendorsTableSeeder::class);
-        $this->call(VendorsBusinessDetailTableSeeder::class);
-        $this->call(VendorBankDetailTableSeeder::class);
+        // $this->call(AdminTableSeeder::class);
+        // $this->call(VendorsTableSeeder::class);
+        // $this->call(VendorsBusinessDetailTableSeeder::class);
+        // $this->call(VendorBankDetailTableSeeder::class);
+        $this->call(SectionsTableSeeder::class);
     }
 }
