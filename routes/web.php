@@ -59,9 +59,13 @@ Route::prefix('admin')->group(function () {
         // change active-inactive admin status
         Route::get('/change-status/{id}', [AdminController::class, 'changeStatus']);
 
+        // ================================== SECTION CONTROLLER ====================================================
         // Sections
         Route::get('/sections', [SectionController::class, 'sections'])
             ->name('admin.sections');
+
+        // change secction status
+        Route::get('/change-section-status/{id}', [SectionController::class, 'changeSectionStatus']);
     });
 
     // admin login route
