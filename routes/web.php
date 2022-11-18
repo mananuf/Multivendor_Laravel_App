@@ -66,6 +66,8 @@ Route::prefix('admin')->group(function () {
 
         // change secction status
         Route::get('/change-section-status/{id}', [SectionController::class, 'changeSectionStatus']);
+        // delete section
+        Route::get('/delete-section/{id}', [SectionController::class, 'deleteSection']);
     });
 
     // admin login route
