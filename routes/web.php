@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function () {
             ->name('vendor.details.update');
 
         // displays Admins/Sub-admins/Vendors
-        Route::get('/{type?}', [AdminController::class, 'adminsView'])
+        Route::get('admins/{type?}', [AdminController::class, 'adminsView'])
             ->name('admin.admins.view');
 
         // displays vendors details
