@@ -40,4 +40,12 @@ class SectionController extends Controller
         );
         return redirect()->back()->with('warning', 'STATUS CHANGED: section is now in-active');
     }
+
+    // delete section
+    public function deleteSection($id)
+    {
+        $section = Section::find($id);
+        $section->delete();
+        return redirect()->back()->with('success', 'Section was successfully deleted!');
+    }
 }
