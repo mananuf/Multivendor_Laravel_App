@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/view-vendor-details/{id}', [AdminController::class, 'viewVendorDetails'])
             ->name('admin.view.vendor');
 
+        // change active-inactive admin status
         Route::get('/change-status/{id}', [AdminController::class, 'changeStatus']);
+
+        // Sections
+        Route::get('/sections', [SectionController::class, 'sections'])
+            ->name('admin.sections');
     });
 
     // admin login route
