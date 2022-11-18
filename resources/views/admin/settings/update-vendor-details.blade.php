@@ -62,7 +62,20 @@
 
                           <div class="form-group">
                             <label for="country">Country</label>
-                            <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" value="{{$vendorDetail->country}}" name="country">
+                            <select name="country" 
+                            id="country"
+                            class="form-control text-dark @error('country') is-invalid @enderror"
+                            
+                             >
+                             <option>select country</option>
+                             @foreach ($countries as $country)
+                                 <option value="{{$country->country_name}}"
+                                  @if ($country->country_name==$vendorDetail->country)
+                                     selected 
+                                  @endif> {{ $country->country_name }}</option>
+                             @endforeach
+                            </select>
+
                             @if($errors)
                               @error('country')
                                   <small class="text-sm text-danger">{{$message}}</small>
@@ -169,13 +182,23 @@
                           </div>
 
                           <div class="form-group">
-                            <label for="shop_country">Shop Country</label>
-                            <input type="text" 
-                            class="form-control @error('shop_country') is-invalid @enderror" 
-                            id="shop_country" value="{{$vendorDetail->shop_country}}" 
-                            name="shop_country">
+                            <label for="shop_country">shop country</label>
+                            <select name="shop_country" 
+                            id="shop_country"
+                            class="form-control text-dark @error('shop_country') is-invalid @enderror"
+                            
+                             >
+                             <option>select country</option>
+                             @foreach ($countries as $country)
+                                 <option value="{{$country->country_name}}"
+                                  @if ($country->country_name==$vendorDetail->shop_country)
+                                     selected 
+                                  @endif> {{ $country->country_name }}</option>
+                             @endforeach
+                            </select>
+                            
                             @if($errors)
-                              @error('shop_country')
+                              @error('country')
                                   <small class="text-sm text-danger">{{$message}}</small>
                               @enderror
                               @endif
@@ -220,7 +243,7 @@
 
                       <div class="form-group">
                         <label for="address_proof">Address Proof Credential</label>
-                        <select class="form-control @error('address_proof') is-invalid @enderror" 
+                        <select class="form-control text-dark @error('address_proof') is-invalid @enderror" 
                         value="{{$vendorDetail->address_proof}}" 
                         name="address_proof" 
                         id="address_proof">
