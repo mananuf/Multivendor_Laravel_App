@@ -363,4 +363,22 @@ class AdminController extends Controller
             )
         );
     }
+
+    // change status
+    public function changeStatus($id)
+    {
+        $admin = Admin::find($id);
+        // dd($admin->name);
+        if ($admin->status == 0) {
+            $admin::where('id', $id)->update(
+                ['status' => 1,]
+            );
+            return redirect()->back()->with('success', 'STATUS CHANGED: admin is now active');
+        }
+
+        $admin::where('id', $id)->update(
+            ['status' => 0,]
+        );
+        return redirect()->back()->with('success', 'STATUS CHANGED: admin is now in-active');
+    }
 }
