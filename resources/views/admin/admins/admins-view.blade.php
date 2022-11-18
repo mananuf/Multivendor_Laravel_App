@@ -35,11 +35,20 @@
                         <td> {{$admin->phone}}</td>
                         <td>{{$admin->email}}</td>
                         <td>
-                           @if ($admin->status == 1)
+                           @if ($admin->type == "super_admin")
                            <label class="badge badge-success">Active</label>
-                           @else
-                           <label class="badge badge-secondary text-white">in-active</label>
                            @endif
+                           @if ($admin->type == "vendor" || $admin->type == "sub_admin")
+                                @if ($admin->status == 1)
+                                <a href="{{url('admin/change-status/'.$admin->id)}}">
+                                    <span class="badge badge-success">Active</span>
+                                </a>
+                                @else
+                                <a href="{{url('admin/change-status/'.$admin->id)}}">
+                                    <span class="badge badge-secondary text-white">in-active</span>
+                                </a>
+                                @endif
+                            @endif
                         </td>
                         <td>
                             @if ($admin->type == "vendor")
