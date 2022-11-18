@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Country;
 use App\Models\Vendor;
 use App\Models\VendorBankDetail;
 use App\Models\VendorsBusinessDetail;
@@ -22,6 +23,7 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
+
         if ($request->isMethod('POST')) {
             // rules to validate form
             $rules = [
@@ -315,11 +317,15 @@ class AdminController extends Controller
                 ->first()
                 ->get();
         }
+        // countries
+        $countries = Country::where('stats', 1)->get();
+        // dd($countries);
         return view(
             'admin.settings.update-vendor-details',
             compact(
                 'slug',
                 'vendorDetails',
+                'countries',
             )
         );
     }
