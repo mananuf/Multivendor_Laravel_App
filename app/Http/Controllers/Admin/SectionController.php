@@ -23,4 +23,21 @@ class SectionController extends Controller
             )
         );
     }
+
+    public function changeSectionStatus($id)
+    {
+        $section = Section::find($id);
+        // dd($section->section_name);
+        if ($section->status == 0) {
+            $section::where('id', $id)->update(
+                ['status' => 1,]
+            );
+            return redirect()->back()->with('success', 'STATUS CHANGED: section is now active');
+        }
+
+        $section::where('id', $id)->update(
+            ['status' => 0,]
+        );
+        return redirect()->back()->with('warning', 'STATUS CHANGED: section is now in-active');
+    }
 }
