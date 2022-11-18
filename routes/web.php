@@ -54,6 +54,8 @@ Route::prefix('admin')->group(function () {
         // displays vendors details
         Route::get('/view-vendor-details/{id}', [AdminController::class, 'viewVendorDetails'])
             ->name('admin.view.vendor');
+
+        Route::get('/change-status/{id}', [AdminController::class, 'changeStatus']);
     });
 
     // admin login route
