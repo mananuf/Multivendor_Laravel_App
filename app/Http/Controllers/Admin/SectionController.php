@@ -48,4 +48,14 @@ class SectionController extends Controller
         $section->delete();
         return redirect()->back()->with('success', 'Section was successfully deleted!');
     }
+
+    // edit section
+    public function editSection(Request $request, $id)
+    {
+        // dd($request);
+        $section = Section::find($id)->update([
+            'section_name' => $request->section_name,
+        ]);
+        return redirect()->back()->with('success', 'Section was successfully updated!');
+    }
 }
