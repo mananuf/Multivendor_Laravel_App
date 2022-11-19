@@ -84,12 +84,50 @@
                         </td>
                         <td>
                             
-                                <a href="" title="{{'edit '.$section->section_name}}">
+                                <a href="" data-toggle="modal" data-target="#editModal-{{$section->id}}" title="{{'edit '.$section->section_name}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="" fill="currentColor" style="width:20px">
                                         <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
                                         <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
                                       </svg>                                  
                                 </a>
+                                <!-- edit Modal -->
+                                <div class="modal fade" id="editModal-{{$section->id}}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit {{$section->section_name}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form class="forms-sample" action="{{url('admin/edit-section/'.$section->id)}}" method="POST">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label for="section_name">Section Name</label>
+                                                <input type="text" 
+                                                class="form-control @error('section_name') is-invalid @enderror" 
+                                                id="section_name" value="{{$section->section_name}}" 
+                                                name="section_name">
+                                                @if($errors)
+                                                @error('section_name')
+                                                    <small class="text-sm text-danger">{{$message}}</small>
+                                                @enderror
+                                                @endif
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                
+                                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                                </div>
+                                        </form>
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+
+
 
                                 <a href="" data-toggle="modal" data-target="#deleteModal-{{$section->id}}" title="{{'delete '.$section->section_name}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="mx-2 text-danger" fill="currentColor" style="width:20px">
